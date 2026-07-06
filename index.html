@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kashvi Shah — Bioinformatics Analyst</title>
+<meta name="description" content="Kashvi Shah — Bioinformatics Analyst specializing in NGS, multi-omics analysis, reproducible pipelines, and ML for biomarker discovery." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* solid dark palette */
+    --paper:#111013;      /* solid near-black background */
+    --paper-2:#18171b;
+    --panel:#1e1c21;
+    --line:rgba(244,238,225,.14);
+    --line-soft:rgba(244,238,225,.08);
+    --ink:#f2ede2;         /* warm cream text */
+    --muted:#9c9587;
+    --faint:#5a5548;
+    --blue:#e8a33c;        /* warm gold */
+    --red:#2bbf9e;         /* deep emerald teal */
+    --accent:var(--blue);
+    --accent-2:var(--red);
+    --serif:"Fraunces",Georgia,"Times New Roman",serif;
+    --type:"Courier Prime",ui-monospace,"Courier New",monospace;
+    --sidebar:360px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--type);
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--blue);color:var(--paper)}
+
+  /* ===== LAYOUT: fixed identity column + scrolling content ===== */
+  .shell{position:relative;z-index:3;display:flex;min-height:100vh}
+
+  aside{
+    position:fixed;top:0;left:0;width:var(--sidebar);height:100vh;
+    padding:52px 44px;display:flex;flex-direction:column;
+    border-right:2px solid var(--line);
+    background:linear-gradient(180deg,rgba(10,10,15,.55),rgba(10,10,15,.85));
+    backdrop-filter:blur(4px);
+  }
+  .brand-mark{font-family:var(--type);font-weight:700;font-size:.72rem;letter-spacing:3px;color:var(--red);text-transform:uppercase}
+  aside h1{font-family:var(--serif);font-weight:600;font-size:3.5rem;line-height:.95;letter-spacing:-1.5px;margin-top:22px}
+  aside h1 em{font-style:italic;color:var(--blue);font-weight:500}
+  aside .subrole{font-family:var(--type);font-size:.8rem;color:var(--muted);margin-top:20px;line-height:1.85;letter-spacing:.2px}
+  aside .subrole b{color:var(--ink);font-weight:700}
+
+  .side-nav{margin-top:42px;display:flex;flex-direction:column;gap:2px}
+  .side-nav a{font-family:var(--type);font-size:.82rem;color:var(--muted);padding:7px 0;display:flex;align-items:baseline;gap:12px;transition:.2s;width:max-content}
+  .side-nav a .n{color:var(--faint);font-size:.72rem;font-weight:700}
+  .side-nav a:hover,.side-nav a.active{color:var(--blue);font-weight:700;letter-spacing:.4px}
+  .side-nav a:hover .n,.side-nav a.active .n{color:var(--red)}
+
+  .side-foot{margin-top:auto;display:flex;flex-direction:column;gap:14px}
+  .status{font-family:var(--type);font-weight:700;font-size:.72rem;color:var(--ink);display:flex;align-items:center;gap:9px;text-transform:uppercase;letter-spacing:.5px}
+  .status .dot{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 0 3px rgba(255,67,38,.2);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .side-links{display:flex;gap:16px;font-family:var(--type);font-size:.76rem}
+  .side-links a{color:var(--muted);transition:.2s;border-bottom:2px solid var(--line)}
+  .side-links a:hover{color:var(--blue);border-color:var(--blue)}
+
+  main{margin-left:var(--sidebar);flex:1;padding:0 clamp(28px,6vw,96px)}
+
+  .topbar{display:none}
+  @media(max-width:960px){
+    aside{position:relative;width:100%;height:auto;border-right:0;border-bottom:2px solid var(--line);padding:40px 26px}
+    aside h1{font-size:3rem}
+    .side-nav{display:none}
+    .side-foot{margin-top:30px}
+    main{margin-left:0;padding:0 26px}
+    .shell{flex-direction:column}
+    .topbar{display:flex;position:sticky;top:0;z-index:40;justify-content:space-between;align-items:center;
+      padding:14px 26px;background:rgba(10,10,15,.92);backdrop-filter:blur(10px);border-bottom:2px solid var(--line);font-family:var(--type);font-weight:700}
+    .topbar .tb-name{letter-spacing:1px;font-size:.85rem}
+    .topbar .tb-links{display:flex;gap:16px;font-size:.75rem;color:var(--muted)}
+    .topbar .tb-links a:hover{color:var(--blue)}
+  }
+
+  /* ===== content sections ===== */
+  section{padding:88px 0;border-bottom:1px solid var(--line-soft);max-width:820px}
+  section:last-of-type{border-bottom:0}
+  .eyebrow{font-family:var(--type);font-weight:700;font-size:.74rem;letter-spacing:2px;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:12px;margin-bottom:30px}
+  .eyebrow .num{color:var(--red)}
+  .eyebrow::after{content:"";flex:1;height:2px;background:var(--ink);max-width:120px}
+
+  h2.big{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,5vw,3.1rem);line-height:1.05;letter-spacing:-1px}
+  h2.big em{font-style:italic;color:var(--blue)}
+
+  /* profile */
+  .intro-lede{font-family:var(--serif);font-weight:400;font-size:clamp(1.5rem,3.6vw,2.15rem);line-height:1.4;letter-spacing:-.3px;margin-top:6px}
+  .intro-lede .hl{color:var(--red);font-style:italic}
+  .intro-body{color:var(--muted);font-size:.98rem;margin-top:30px;max-width:620px}
+  .intro-body b{color:var(--ink);font-weight:700}
+  .intro-body p{margin-bottom:16px}
+  .intro-stats{display:flex;gap:40px;flex-wrap:wrap;margin-top:44px;padding-top:32px;border-top:2px solid var(--ink)}
+  .istat b{display:block;font-family:var(--serif);font-size:2.2rem;font-weight:600;color:var(--blue);line-height:1}
+  .istat span{font-family:var(--type);font-weight:700;font-size:.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:8px;display:block}
+
+  /* editorial WORK list */
+  .work-list{display:flex;flex-direction:column;border-top:2px solid var(--ink)}
+  .work-item{display:block;padding:30px 0;border-bottom:1px solid var(--line);position:relative;transition:.3s}
+  .work-item:hover{padding-left:16px;background:linear-gradient(90deg,rgba(43,57,255,.05),transparent 70%)}
+  .work-top{display:flex;align-items:baseline;gap:16px;justify-content:space-between}
+  .work-idx{font-family:var(--type);font-weight:700;font-size:.78rem;color:var(--red)}
+  .work-title{font-family:var(--serif);font-weight:500;font-size:clamp(1.5rem,3.4vw,2.1rem);line-height:1.1;letter-spacing:-.5px;transition:.25s;flex:1}
+  .work-item:hover .work-title{color:var(--blue)}
+  .work-arrow{font-family:var(--type);color:var(--faint);font-size:1.1rem;transition:.25s}
+  .work-item:hover .work-arrow{color:var(--red);transform:translate(3px,-3px)}
+  .work-desc{color:var(--muted);font-size:.94rem;margin-top:12px;max-width:640px}
+  .work-meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:16px;font-family:var(--type);font-weight:700;font-size:.72rem;color:var(--faint);letter-spacing:.5px;text-transform:uppercase}
+  .work-meta span::before{content:"·";margin-right:18px;color:var(--line)}
+  .work-meta span:first-child::before{display:none}
+
+  /* experience */
+  .xp{display:flex;flex-direction:column;border-top:2px solid var(--ink)}
+  .xp-item{padding:34px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:150px 1fr;gap:24px}
+  @media(max-width:620px){.xp-item{grid-template-columns:1fr;gap:10px}}
+  .xp-when{font-family:var(--type);font-weight:700;font-size:.76rem;color:var(--red);letter-spacing:.5px;padding-top:6px;text-transform:uppercase}
+  .xp-role{font-family:var(--serif);font-size:1.45rem;font-weight:500;letter-spacing:-.3px}
+  .xp-org{font-family:var(--type);font-weight:700;font-size:.78rem;color:var(--blue);margin:6px 0 16px}
+  .xp-list{list-style:none;display:flex;flex-direction:column;gap:11px}
+  .xp-list li{position:relative;padding-left:22px;color:var(--muted);font-size:.94rem}
+  .xp-list li::before{content:"—";position:absolute;left:0;color:var(--red)}
+  .xp-list li b{color:var(--ink);font-weight:700}
+
+  /* skills index */
+  .skills-index{border-top:2px solid var(--ink)}
+  .skill-row{display:grid;grid-template-columns:210px 1fr;gap:24px;padding:24px 0;border-bottom:1px solid var(--line);align-items:start}
+  @media(max-width:620px){.skill-row{grid-template-columns:1fr;gap:8px}}
+  .skill-row h3{font-family:var(--serif);font-size:1.2rem;font-weight:500}
+  .skill-row .items{font-family:var(--type);font-size:.82rem;color:var(--muted);line-height:1.95}
+  .skill-row .items span{white-space:nowrap}
+  .skill-row .items span::after{content:" / ";color:var(--red)}
+  .skill-row .items span:last-child::after{content:""}
+
+  /* publications */
+  .pubs{border-top:2px solid var(--ink)}
+  .pub{padding:24px 0;border-bottom:1px solid var(--line);transition:.2s}
+  .pub:hover{padding-left:14px}
+  .pub .pt{font-family:var(--serif);font-size:1.2rem;font-weight:500;line-height:1.3;letter-spacing:-.2px}
+  .pub .pm{font-family:var(--type);font-size:.78rem;color:var(--muted);margin-top:8px;letter-spacing:.2px}
+  .pub .pm b{color:var(--blue);font-weight:700}
+  .pub-more{font-family:var(--type);font-size:.82rem;color:var(--muted);margin-top:26px}
+  .pub-more a{color:var(--blue);font-weight:700;border-bottom:2px solid var(--blue)}
+
+  /* education */
+  .edu{border-top:2px solid var(--ink)}
+  .edu-row{padding:26px 0;border-bottom:1px solid var(--line)}
+  .edu-row .d{font-family:var(--serif);font-size:1.4rem;font-weight:500;letter-spacing:-.3px}
+  .edu-row .s{color:var(--muted);font-size:.92rem;margin:6px 0}
+  .edu-row .m{font-family:var(--type);font-weight:700;font-size:.75rem;color:var(--red);letter-spacing:.4px;margin-top:8px;text-transform:uppercase}
+
+  /* contact */
+  .contact-h{font-family:var(--serif);font-weight:500;font-size:clamp(2.2rem,6vw,4rem);line-height:1.02;letter-spacing:-1.5px}
+  .contact-h em{font-style:italic;color:var(--blue)}
+  .contact-sub{color:var(--muted);margin-top:22px;max-width:520px;font-size:1rem}
+  .contact-grid{display:flex;flex-wrap:wrap;gap:14px 40px;margin-top:40px}
+  .contact-grid a{font-family:var(--type);font-weight:700;font-size:.9rem;color:var(--ink);border-bottom:2px solid var(--line);padding-bottom:4px;transition:.22s;display:inline-flex;gap:8px;align-items:center}
+  .contact-grid a:hover{color:var(--red);border-color:var(--red);gap:12px}
+  .colophon{font-family:var(--type);font-size:.72rem;color:var(--faint);margin-top:70px;padding-bottom:60px;letter-spacing:.5px}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease}
+  .reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <span class="tb-name">KASHVI SHAH</span>
+  <div class="tb-links">
+    <a href="#work">Work</a><a href="#papers">Papers</a><a href="#contact">Contact</a>
+  </div>
+</div>
+
+<div class="shell">
+  <!-- IDENTITY COLUMN -->
+  <aside>
+    <div class="brand-mark">Bioinformatics · Portfolio</div>
+    <h1>Kashvi<br><em>Shah</em></h1>
+    <div class="subrole">
+      <b>Bioinformatics Analyst</b><br>
+      NGS &amp; multi-omics · ML for<br>biomarker discovery
+    </div>
+    <nav class="side-nav">
+      <a href="#intro"><span class="n">01</span> Profile</a>
+      <a href="#work"><span class="n">02</span> Selected Work</a>
+      <a href="#experience"><span class="n">03</span> Experience</a>
+      <a href="#skills"><span class="n">04</span> Toolkit</a>
+      <a href="#papers"><span class="n">05</span> Research</a>
+      <a href="#education"><span class="n">06</span> Education</a>
+      <a href="#contact"><span class="n">07</span> Contact</a>
+    </nav>
+    <div class="side-foot">
+      <div class="status"><span class="dot"></span> Open to Analyst roles</div>
+      <div class="side-links">
+        <a href="mailto:kashvishah4@gmail.com">Email</a>
+        <a href="https://github.com/Code-krafter22">GitHub</a>
+        <a href="https://linkedin.com/in/kashvi-shah">LinkedIn</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <main>
+    <!-- PROFILE -->
+    <section id="intro">
+      <div class="eyebrow"><span class="num">01</span> Profile</div>
+      <p class="intro-lede reveal">I turn raw sequencing and clinical data into <span class="hl">reproducible pipelines</span>, validated biomarkers, and biological insight.</p>
+      <div class="intro-body reveal">
+        <p>A <b>Bioinformatics Analyst</b> specializing in NGS and multi-omics analysis across human patient cohorts and mouse models with linked clinical data, spanning <b>scRNA-seq, bulk RNA-seq, ChIP-seq, spatial transcriptomics, and proteomics</b>.</p>
+        <p>I build reproducible, version-controlled pipelines (Nextflow/nf-core, Docker, Git) on Linux/SLURM HPC, and apply machine learning for biomarker discovery and disease prediction. My background as a <b>Doctor of Pharmacy</b> and <b>published researcher</b> lets me speak fluently to computational and clinical audiences alike.</p>
+      </div>
+      <div class="intro-stats reveal">
+        <div class="istat"><b>7+</b><span>Publications</span></div>
+        <div class="istat"><b>150+</b><span>Citations</span></div>
+        <div class="istat"><b>4.0</b><span>MS GPA</span></div>
+        <div class="istat"><b>10+</b><span>Omics datasets</span></div>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section id="work">
+      <div class="eyebrow"><span class="num">02</span> Selected Work</div>
+      <h2 class="big reveal">Projects, <em>end to end.</em></h2>
+      <div class="work-list reveal" style="margin-top:36px">
+        <a class="work-item" href="https://github.com/Code-krafter22">
+          <div class="work-top"><span class="work-idx">(01)</span><span class="work-title">Single-cell RNA-seq Integration</span><span class="work-arrow">↗</span></div>
+          <p class="work-desc">Integrated multiple NSCLC tumor scRNA-seq datasets with Seurat (SCTransform, integration anchors); clustering, cell-type annotation, and Monocle3 trajectory / pseudotime with publication-quality figures.</p>
+          <div class="work-meta"><span>NSCLC</span><span>Seurat</span><span>Monocle3</span><span>R</span></div>
+        </a>
+        <a class="work-item" href="https://github.com/Code-krafter22">
+          <div class="work-top"><span class="work-idx">(02)</span><span class="work-title">Immune Receptor Diversity &amp; Outcomes</span><span class="work-arrow">↗</span></div>
+          <p class="work-desc">Integrated WES + RNA-seq from TCGA/GDC, performed variant calling, and extracted VDJ recombination to correlate immune-receptor diversity (TRA, TRB, IGH, IGK) with survival via Cox PH and Kaplan-Meier.</p>
+          <div class="work-meta"><span>TCGA</span><span>Python</span><span>Survival</span><span>WES</span></div>
+        </a>
+        <a class="work-item" href="https://github.com/Code-krafter22/Bulk_RNA-Seq_Pipeline">
+          <div class="work-top"><span class="work-idx">(03)</span><span class="work-title">Bulk RNA-seq Biomarker Pipeline</span><span class="work-arrow">↗</span></div>
+          <p class="work-desc">End-to-end pipeline (QC, normalization, batch correction, differential expression via limma-voom/edgeR); derived a cross-dataset biomarker signature via GO/KEGG enrichment, validated with elastic-net ML.</p>
+          <div class="work-meta"><span>Alzheimer's</span><span>edgeR</span><span>limma-voom</span><span>Nextflow</span></div>
+        </a>
+        <a class="work-item" href="https://github.com/Code-krafter22/Chip_seq_analysis">
+          <div class="work-top"><span class="work-idx">(04)</span><span class="work-title">ChIP-seq / Chromatin Profiling</span><span class="work-arrow">↗</span></div>
+          <p class="work-desc">End-to-end chromatin-profiling workflow (FastQC, Bowtie2, MACS3, HOMER) with automated scripts for peak calling, motif analysis, and IGV visualization.</p>
+          <div class="work-meta"><span>Epigenomics</span><span>MACS3</span><span>HOMER</span><span>Bowtie2</span></div>
+        </a>
+        <a class="work-item" href="https://github.com/Code-krafter22/BioSeqAligner">
+          <div class="work-top"><span class="work-idx">(05)</span><span class="work-title">BioSeqAligner — R Package</span><span class="work-arrow">↗</span></div>
+          <p class="work-desc">A published R package for motif detection, pairwise sequence alignment (ggplot2 visualization), transcription, and GC-content analysis, with full documentation, tests, and examples.</p>
+          <div class="work-meta"><span>R Package</span><span>ggplot2</span><span>devtools</span></div>
+        </a>
+        <a class="work-item" href="https://pubmed.ncbi.nlm.nih.gov/39962869/">
+          <div class="work-top"><span class="work-idx">(06)</span><span class="work-title">EGFR Mutations &amp; TKIs in NSCLC</span><span class="work-arrow">↗</span></div>
+          <p class="work-desc">Evaluated clinical, health, and economic outcomes of EGFR inhibitors using generalized linear models, published as a real-world comparative study in J Oncol Pharm Pract.</p>
+          <div class="work-meta"><span>Clinical</span><span>GLMs</span><span>SPSS</span><span>Published</span></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="eyebrow"><span class="num">03</span> Experience</div>
+      <h2 class="big reveal">Where I've <em>built.</em></h2>
+      <div class="xp reveal" style="margin-top:34px">
+        <div class="xp-item">
+          <div class="xp-when">Aug 2025 —<br>May 2026</div>
+          <div>
+            <div class="xp-role">Graduate Research Assistant</div>
+            <div class="xp-org">Moffitt Cancer Center · Dept. of Machine Learning</div>
+            <ul class="xp-list">
+              <li>Built and optimized <b>multi-modal ML &amp; deep-learning models</b> integrating proteomic and cytometry (CyTOF) data across <b>329 samples, 3 patient cohorts</b>, raising disease-state classification AUROC from 0.58 to 0.63.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="xp-item">
+          <div class="xp-when">Apr 2025 —<br>May 2026</div>
+          <div>
+            <div class="xp-role">Student Assistant, Bioinformatics</div>
+            <div class="xp-org">University of South Florida</div>
+            <ul class="xp-list">
+              <li>Designed and maintained <b>Nextflow/nf-core pipelines</b> for bulk RNA-seq, scRNA-seq, ChIP-seq, and spatial transcriptomics across <b>10 datasets</b> on a Linux/SLURM HPC cluster.</li>
+              <li>Built <b>elastic-net ML models with nested cross-validation</b> (AUROC 0.83, AUPRC 0.86) identifying and validating <b>37 candidate biomarkers</b> from integrated multi-omics data.</li>
+              <li>Developed <b>3 Streamlit &amp; R Shiny apps</b> letting the team self-serve results, mentored a junior researcher, and drafted sections for <b>2 extramural grants</b>.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="eyebrow"><span class="num">04</span> Toolkit</div>
+      <h2 class="big reveal">From FASTQ <em>to figure.</em></h2>
+      <div class="skills-index reveal" style="margin-top:34px">
+        <div class="skill-row">
+          <h3>Programming</h3>
+          <div class="items"><span>Python</span><span>R</span><span>SQL</span><span>Bash</span><span>R Markdown</span><span>Streamlit</span><span>R Shiny</span></div>
+        </div>
+        <div class="skill-row">
+          <h3>Statistics &amp; ML / AI</h3>
+          <div class="items"><span>Elastic-net</span><span>Nested CV</span><span>GLMs</span><span>AUROC/AUPRC</span><span>Cox PH</span><span>Kaplan-Meier</span><span>Deep learning</span><span>Multi-modal integration</span></div>
+        </div>
+        <div class="skill-row">
+          <h3>NGS &amp; Multi-omics</h3>
+          <div class="items"><span>scRNA-seq (Seurat, Monocle3)</span><span>Bulk RNA-seq (DESeq2, edgeR, limma)</span><span>ChIP-seq (MACS3, HOMER)</span><span>Variant calling</span><span>Spatial (Visium)</span><span>Proteomics</span><span>WES/WGS</span></div>
+        </div>
+        <div class="skill-row">
+          <h3>Pipelines &amp; HPC</h3>
+          <div class="items"><span>Nextflow/nf-core</span><span>Docker</span><span>Git/GitHub</span><span>Linux/Unix</span><span>SLURM HPC</span></div>
+        </div>
+        <div class="skill-row">
+          <h3>Alignment &amp; Viz</h3>
+          <div class="items"><span>STAR</span><span>Bowtie2</span><span>IGV</span><span>UCSC Genome Browser</span><span>ggplot2</span></div>
+        </div>
+        <div class="skill-row">
+          <h3>Data &amp; Databases</h3>
+          <div class="items"><span>GDC/TCGA</span><span>GEO/SRA</span><span>cBioPortal</span><span>SQL / relational DBs</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section id="papers">
+      <div class="eyebrow"><span class="num">05</span> Research</div>
+      <h2 class="big reveal">Peer-reviewed <em>work.</em></h2>
+      <div class="pubs reveal" style="margin-top:34px">
+        <div class="pub">
+          <div class="pt">Comparison of first- and third-generation EGFR-TKIs for the treatment of advanced NSCLC: a real-world study</div>
+          <div class="pm">Shah M, <b>Shah K</b>, Dave H, et al. · J Oncol Pharm Pract, 2025 · PMID 39962869</div>
+        </div>
+        <div class="pub">
+          <div class="pt">Unveiling the modulation of Nogo receptor in neuroregeneration and plasticity</div>
+          <div class="pm">Dave BP, <b>Shah KC</b>, Shah MB, Chorawala MR, et al. · Biochemical Pharmacology, 210, 115461 (2023)</div>
+        </div>
+        <div class="pub">
+          <div class="pt">Emerging pathophysiological mechanisms linking diabetes mellitus and Alzheimer's disease</div>
+          <div class="pm">Patel VN, Chorawala MR, Shah MB, <b>Shah KC</b>, et al. · J Alzheimer's Disease Reports, 6(1), 349-357 (2022)</div>
+        </div>
+      </div>
+      <p class="pub-more reveal">7 peer-reviewed articles + 1 book chapter · 3 as first author. Full list on <a href="https://scholar.google.com">Google Scholar ↗</a></p>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+      <div class="eyebrow"><span class="num">06</span> Education</div>
+      <h2 class="big reveal">Academic <em>record.</em></h2>
+      <div class="edu reveal" style="margin-top:34px">
+        <div class="edu-row">
+          <div class="d">M.S. Bioinformatics &amp; Computational Biology</div>
+          <div class="s">University of South Florida, Morsani College of Medicine · Tampa, FL</div>
+          <div class="m">GPA 4.00 / 4.00 · Aug 2024 to May 2026</div>
+        </div>
+        <div class="edu-row">
+          <div class="d">Doctor of Pharmacy (Pharm.D)</div>
+          <div class="s">Gujarat Technological University, L. M. College of Pharmacy · Ahmedabad, India</div>
+          <div class="m">GPA 3.98 / 4.00 · Bronze Medalist (top of class)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="eyebrow"><span class="num">07</span> Contact</div>
+      <h2 class="contact-h reveal">Let's build<br>something <em>together.</em></h2>
+      <p class="contact-sub reveal">Open to Bioinformatics Analyst roles and research collaborations. Email is the fastest way to reach me.</p>
+      <div class="contact-grid reveal">
+        <a href="mailto:kashvishah4@gmail.com">✦ kashvishah4@gmail.com</a>
+        <a href="https://linkedin.com/in/kashvi-shah">LinkedIn ↗</a>
+        <a href="https://github.com/Code-krafter22">GitHub ↗</a>
+        <a href="https://scholar.google.com">Google Scholar ↗</a>
+      </div>
+      <div class="colophon">© <span id="year"></span> Kashvi Shah · Tampa, FL</div>
+    </section>
+  </main>
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  const navMap = {};
+  document.querySelectorAll('.side-nav a').forEach(a => navMap[a.getAttribute('href').slice(1)] = a);
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      const link = navMap[e.target.id];
+      if (link && e.isIntersecting){
+        Object.values(navMap).forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      }
+    });
+  }, { rootMargin:'-40% 0px -55% 0px' });
+  document.querySelectorAll('main section').forEach(s => spy.observe(s));
+
+</script>
+</body>
+</html>
